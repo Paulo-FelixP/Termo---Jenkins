@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nível 1 - Termo</title>
+<style>
+  body {
+    background: #121213;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    margin: 0;
+  }
+  h1 { margin: 8px 0 18px; }
+
+  .board {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #fff;
+  }
+  .cell.green { background:#538d4e; border-color:#538d4e; }
+  .cell.yellow { background:#b59f3b; border-color:#b59f3b; }
+  .cell.gray { background:#3a3a3c; border-color:#3a3a3c; }
+
+  .controls { margin-top: 12px; }
+  .input-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .letter-input {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #565758;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .letter-input:focus { border-color: #6aaa64; outline: none; }
+
+  button {
+    margin-top: 12px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #6aaa64;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .msg { margin-top: 14px; font-size: 1.1rem; }
+
+  /* 🔥 CSS RESPONSIVO GARANTIDO 🔥 */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #121213;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1 {
+    margin: 8px 0 18px;
+    text-align: center;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  .logo {
+    width: 120px;
+    max-width: 40%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .board {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+    width: 100%;
+    max-width: 95vw;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 6px;
+    justify-items: center;
+  }
+
+  .cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    text-transform: uppercase;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+  }
+
+  .cell.green { background:#538d4e; border-color:#538d4e; }
+  .cell.yellow { background:#b59f3b; border-color:#b59f3b; }
+  .cell.gray { background:#3a3a3c; border-color:#3a3a3c; }
+
+  .controls {
+    margin-top: 12px;
+    width: 100%;
+    max-width: 95vw;
+  }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 6px;
+    justify-items: center;
+  }
+
+  .letter-input {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #565758;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .letter-input:focus {
+    border-color: #6aaa64;
+    outline: none;
+  }
+
+  button {
+    margin-top: 14px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #6aaa64;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .msg {
+    margin-top: 14px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .board, .controls {
+      max-width: 100%;
+      gap: 4px;
+    }
+    .cell, .letter-input {
+      border-width: 1.5px;
+    }
+    .logo {
+      width: 100px;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <!--  LOGO   -->
+  <img src="{% static 'imagens/jenkins-Emblem.png' %}" alt="Logo do jogo" class="logo">
+
+  <h1>Nível 1</h1>
+
+  <div class="board">
+    {% for tentativa in tentativas %}
+      <div class="row">
+        {% for cor, letra in tentativa %}
+          <div class="cell {{ cor }}">{{ letra }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if feedback != 'acertou' and feedback != 'errou' %}
+  <div class="controls">
+    <form method="post">
+      {% csrf_token %}
+      <div class="input-row">
+        {% for i in "1234567" %}
+          <input type="text" maxlength="1" name="letra{{ forloop.counter }}" class="letter-input" required>
+        {% endfor %}
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if feedback == 'acertou' %}
+    <div class="msg" style="color:#6aaa64"> Boa, mas essa tambem tava obvia. A palavra era JENKINS.</div>
+    <a href="{% url 'nivel2' %}" style="text-decoration: none;">
+      <button>👉 Próximo Nível</button>
+    </a>
+  {% elif feedback == 'errou' %}
+    <div class="msg" style="color:#f2b134">Meu amigo é LITERALMENTE o tema. A palavras era JENKINS</div>
+  {% endif %}
+
+<script>
+  const inputs = document.querySelectorAll('.letter-input');
+  inputs.forEach((input, idx) => {
+    input.addEventListener('input', e => {
+      e.target.value = e.target.value.toUpperCase();
+      if (e.target.value && idx < inputs.length - 1) inputs[idx + 1].focus();
+    });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !e.target.value && idx > 0)
+        inputs[idx - 1].focus();
+    });
+  });
+  if (inputs.length > 0) inputs[0].focus();
+</script>
+</body>
+</html>

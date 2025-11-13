@@ -1,0 +1,119 @@
+
+     * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #121213;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1 {
+    margin: 8px 0 18px;
+    text-align: center;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  /* GRADE RESPONSIVA */
+  .board {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+    width: 100%;
+    max-width: 95vw;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+    gap: 6px;
+    justify-items: center;
+  }
+
+  /* CÉLULAS FLEXÍVEIS */
+  .cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    text-transform: uppercase;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+  }
+
+  .cell.green { background:#538d4e; border-color:#538d4e; }
+  .cell.yellow { background:#b59f3b; border-color:#b59f3b; }
+  .cell.gray { background:#3a3a3c; border-color:#3a3a3c; }
+
+  /* CONTROLES */
+  .controls {
+    margin-top: 12px;
+    width: 100%;
+    max-width: 95vw;
+  }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+    gap: 6px;
+    justify-items: center;
+  }
+
+  .letter-input {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #565758;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .letter-input:focus {
+    border-color: #6aaa64;
+    outline: none;
+  }
+
+  button {
+    margin-top: 14px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #6aaa64;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .msg {
+    margin-top: 14px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .board, .controls {
+      max-width: 100%;
+      gap: 4px;
+    }
+    .cell, .letter-input {
+      border-width: 1.5px;
+    }
+  }
