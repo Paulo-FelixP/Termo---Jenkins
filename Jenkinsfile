@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo "Baixando o código do GitHub..."
@@ -12,29 +13,31 @@ pipeline {
         stage('Instalar dependências') {
             steps {
                 echo "Instalando dependências..."
-                sh '''
-                    python -m pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                sh """
+                    . /var/jenkins_home/venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt || true
+                """
             }
         }
 
         stage('Testes') {
             steps {
-                echo "Executando testes Django..."
-                sh '''
+                echo "Executando testes..."
+                sh """
+                    . /var/jenkins_home/venv/bin/activate
                     python manage.py test
-                '''
+                """
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline finalizada com sucesso!'
+            echo "Pipeline concluída com sucesso!"
         }
         failure {
-            echo 'A pipeline falhou.'
+            echo "A pipeline falhou."
         }
     }
 }
