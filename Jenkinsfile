@@ -12,32 +12,30 @@ pipeline {
 
         stage('Instalar dependências') {
             steps {
-                echo "Instalando dependências..."
                 sh """
                     . /var/jenkins_home/venv/bin/activate
                     pip install --upgrade pip
-                    pip install -r requirements.txt || true
+                    pip install -r requirements.txt
                 """
             }
         }
 
         stage('Testes') {
             steps {
-                echo "Executando testes..."
                 sh """
                     . /var/jenkins_home/venv/bin/activate
-                    python manage.py test
+                    python jogo_termo/manage.py test
                 """
             }
         }
     }
 
     post {
-        success {
-            echo "Pipeline concluída com sucesso!"
-        }
         failure {
             echo "A pipeline falhou."
+        }
+        success {
+            echo "Pipeline concluída com sucesso!"
         }
     }
 }
