@@ -2,40 +2,30 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
-                echo "Baixando o código do GitHub..."
-                checkout scm
+                git branch: 'main', url: 'https://github.com/Paulo-FelixP/Termo---Jenkins'
             }
         }
 
         stage('Instalar dependências') {
             steps {
-                sh """
-                    . /var/jenkins_home/venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                """
+                sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install --upgrade pip
+                pip install django
+                '''
             }
         }
 
-        stage('Testes') {
+        stage('Rodar testes') {
             steps {
-                sh """
-                    . /var/jenkins_home/venv/bin/activate
-                    python jogo_termo/manage.py test
-                """
+                sh '''
+                . venv/bin/activate
+                python manage.py test
+                '''
             }
-        }
-    }
-
-    post {
-        failure {
-            echo "A pipeline falhou."
-        }
-        success {
-            echo "Pipeline concluída com sucesso!"
         }
     }
 }
