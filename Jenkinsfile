@@ -2,30 +2,48 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Paulo-FelixP/Termo---Jenkins'
+                echo 'Baixando código do repositório...'
+                checkout scm
             }
         }
 
-        stage('Instalar dependências') {
+        stage('Setup Python') {
             steps {
+                echo 'Criando virtualenv e instalando dependências...'
                 sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --upgrade pip
-                pip install django
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+
+                    if [ -f requirements.txt ]; then
+                        pip install -r requirements.txt
+                    else
+                        pip install django
+                    fi
                 '''
             }
         }
 
-        stage('Rodar testes') {
+        stage('Run Tests') {
             steps {
+                echo 'Executando testes...'
                 sh '''
-                . venv/bin/activate
-                python jogo_termo/manage.py test
+                    . venv/bin/activate
+                    python manage.py test termo
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✓ Todos os testes passaram com sucesso.'
+        }
+        failure {
+            echo '✗ Algum teste falhou. Verifique a saída acima.'
         }
     }
 }
