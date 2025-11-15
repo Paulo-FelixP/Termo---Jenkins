@@ -14,4 +14,4 @@ class TesteNivel1(TestCase):
         response = self.client.get(url)
 
         # teste propositalmente errado
-        self.assertTemplateUsed(response, 'nao_existe_teste.html')
+        self.assertTemplateUsed(response, 'termo/nivel1.html')
