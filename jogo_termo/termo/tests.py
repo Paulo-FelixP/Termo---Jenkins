@@ -1,19 +1,17 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.http import HttpResponse
 
-class TesteBasicoTermo(TestCase):
-    def test_pagina_inicial_carrega(self):
+class TesteNivel1(TestCase):
+    def test_template_usado_nivel1(self):
         """
-        Testa se a página inicial do projeto responde com status 200.
-        Caso sua view principal tenha outro nome, basta ajustar a URL.
+        ESTE TESTE VAI FALHAR DE PROPÓSITO.
+        Ele espera que o nível 1 use o template 'termo/home.html',
+        mas sua view usa 'termo/nivel1.html'.
+        Assim você aprende como localizar e resolver o erro.
         """
 
-        url = reverse('index')  # <- ajuste aqui caso sua URL tenha outro nome
+        url = reverse('nivel1')
         response = self.client.get(url)
 
-        # 1) A página deve existir
-        self.assertEqual(response.status_code, 200)
-
-        # 2) A página deve conter algum texto esperado
-        self.assertIn(b"Termo", response.content)
+        # teste propositalmente errado
+        self.assertTemplateUsed(response, 'nao_existe_teste.html')
