@@ -32,6 +32,7 @@ pipeline {
                 echo 'Executando testes...'
                 sh '''
                     . venv/bin/activate
+                    cd jogo_termo
                     python manage.py test termo
                 '''
             }
@@ -39,11 +40,7 @@ pipeline {
     }
 
     post {
-        success {
-            echo '✓ Todos os testes passaram com sucesso.'
-        }
-        failure {
-            echo '✗ Algum teste falhou. Verifique a saída acima.'
-        }
+        success { echo '✓ Todos os testes passaram.' }
+        failure { echo '✗ Algum teste falhou.' }
     }
 }
