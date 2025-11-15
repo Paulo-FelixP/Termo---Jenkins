@@ -23,7 +23,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                python manage.py test
+                python jogo_termo/manage.py test
                 '''
             }
         }
