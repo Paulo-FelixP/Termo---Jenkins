@@ -56,7 +56,7 @@ def jogar_nivel(request, palavra, template):
 
 # 🟩 Nível 1: Palavra "JENKINS"
 def nivel1(request):
-    return jogar_nivel(request, "JENKINS", "termo/nivel1.html")
+    return jogar_nivel(request, "DOCKER", "termo/nivel1.html")
 
 
 # 🟨 Nível 2: Palavra "HUDSON"
@@ -66,4 +66,4 @@ def nivel2(request):
 
 # 🟦 Nível 3: Palavra "AUTOMAÇÃO"
 def nivel3(request):
-    return jogar_nivel(request, "AUTOMAÇÃO", "termo/nivel3.html")
+    return jogar_nivel(request, "WEBHOOK", "termo/nivel3.html")

@@ -223,15 +223,32 @@
   {% endif %}
 
   {% if feedback == 'acertou' %}
-    <div class="msg" style="color:#6aaa64">Po, essa foi de boa tambem, literalmente o nome do cara que ta estudando aqui ha mais de ano. A palavra era HUDSON!</div>
+    <div class="msg" style="color:#6aaa64">Po, essa foi de boa tambem, literalmente o nome do cara que ta estudando aqui ha mais de ano. Mas a palavra era HUDSON!</div>
      <img src="{% static 'imagens/hudsonacertou.png' %}" alt="Acertou!" class="feedback-img">
-    <a href="{% url 'nivel3' %}" style="text-decoration: none;">
+    
+    <div class="msg" style="margin-top:10px; font-size:1rem; color:#ccc;">
+    Então o Hudson não é o predroso da sala e sim o cara que criou o Jenkins, ele não era tão criativo assim ne. Mas hudson é o nome antigo do Jenkins antes de ser renomeado.
+  </div>  
+    
+    
+     <a href="{% url 'nivel3' %}" style="text-decoration: none;">
       <button>👉 Próximo Nível</button>
     </a>
   {% elif feedback == 'errou' %}
-    <div class="msg" style="color:#f2b134">Eu não acredito de verdade que errou essa. (e se for o grupo de Hudson é pior ainda ter errado) A palavra era HUDSON!</div>
+    <div class="msg" style="color:#f2b134">Eu não acredito de verdade que errou essa. (e se for o grupo de Hudson é pior ainda ter errado) Mas a palavra era HUDSON!</div>
      <img src="{% static 'imagens/hudsonerrou.png' %}" alt="Errou!" class="feedback-img">
-  {% endif %}
+   <div class="msg" style="margin-top:10px; font-size:1rem; color:#ccc;">
+    Então o Hudson não é o predroso da sala e sim o cara que criou o Jenkins, ele não era tão criativo assim ne. Mas hudson é o nome antigo do Jenkins antes de ser renomeado.
+  </div>  
+    
+    
+     <a href="{% url 'nivel3' %}" style="text-decoration: none;">
+      <button>👉 Próximo Nível</button>
+    </a>
+  
+  
+  
+     {% endif %}
 
 <script>
   const inputs = document.querySelectorAll('.letter-input');

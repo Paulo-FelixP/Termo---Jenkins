@@ -230,7 +230,7 @@
     <form method="post">
       {% csrf_token %}
       <div class="input-row">
-        {% for i in "1234567" %}
+        {% for i in "123456" %}
           <input type="text" maxlength="1" name="letra{{ forloop.counter }}" class="letter-input" required>
         {% endfor %}
       </div>
@@ -240,13 +240,33 @@
   {% endif %}
 
   {% if feedback == 'acertou' %}
-    <div class="msg" style="color:#6aaa64"> Boa, mas essa tambem tava obvia. A palavra era JENKINS.</div>
+    <div class="msg" style="color:#6aaa64"> Boa, mas essa tambem tava tranquila. Mas a palavra era DOCKER.</div>
+   <div class="msg" style="margin-top:10px; font-size:1rem; color:#ccc;">
+    Pra quem não viu a apresentação e não sabe isso ne, o docker é uma plataforma que permite criar e gerenciar containers, facilitando a implantação e escalabilidade de aplicações.
+  </div>  
+
+
     <a href="{% url 'nivel2' %}" style="text-decoration: none;">
       <button>👉 Próximo Nível</button>
     </a>
   {% elif feedback == 'errou' %}
-    <div class="msg" style="color:#f2b134">Meu amigo é LITERALMENTE o tema. A palavras era JENKINS</div>
-  {% endif %}
+    <div class="msg" style="color:#f2b134">Chefe, errar isso aqui é bronca, melhor nem ir pra o proximo nivel então. Mas a palavras era DOCKER</div>
+  
+  <div class="msg" style="margin-top:10px; font-size:1rem; color:#ccc;">
+    Pra quem não viu a apresentação e não sabe isso ne, o docker é uma plataforma que permite criar e gerenciar containers, facilitando a implantação e escalabilidade de aplicações.
+  </div>  
+
+
+    <a href="{% url 'nivel2' %}" style="text-decoration: none;">
+      <button>👉 Próximo Nível</button>
+    </a>
+  
+    {% endif %}
+
+
+
+
+
 
 <script>
   const inputs = document.querySelectorAll('.letter-input');
